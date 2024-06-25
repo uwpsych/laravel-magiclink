@@ -110,7 +110,7 @@ class AccessCodeTest extends TestCase
             return 'the big secret';
         }));
 
-        config(['magiclink.access-code.view' => 'access-code-custom']);
+        config(['magiclink.access_code.view' => 'access-code-custom']);
 
         $magiclink->protectWithAccessCode('1234');
 
