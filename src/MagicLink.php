@@ -40,6 +40,10 @@ class MagicLink extends Model
 
     protected $keyType = 'string';
 
+    protected $casts = [
+        'available_at' => 'datetime',
+    ];
+
     protected static function boot()
     {
         parent::boot();
