@@ -130,4 +130,19 @@ class MagicLinkTest extends TestCase
 
         $this->assertStringContainsString($custom_base_url, $magiclink->url);
     }
+
+    public function test_create_magiclink_with_name()
+    {
+        $name = 'Custom name';
+        $magiclink = MagicLink::create(new LoginAction(User::first()), name: 'Custom name');
+
+        $this->assertStringContainsString($name, $magiclink->name);
+    }
+
+    public function test_create_magiclink_without_name()
+    {
+        $magiclink = MagicLink::create(new LoginAction(User::first()));
+
+        $this->assertNull($magiclink->name);
+    }
 }
