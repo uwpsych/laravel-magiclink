@@ -10,7 +10,7 @@ trait AccessCode
 {
     abstract protected function getAccessCode();
 
-    abstract protected function getMagikLinkId();
+    abstract protected function getMagicLinkId();
 
     protected $cookieName = 'magic-link-access-code';
 
@@ -55,7 +55,7 @@ trait AccessCode
             return redirect(request()->url())->withCookie(
                 cookie(
                     $this->cookieName,
-                    encrypt($this->getMagikLinkId().'|'.$accessCode),
+                    encrypt($this->getMagicLinkId().'|'.$accessCode),
                     0,
                     '/'
                 )
@@ -102,7 +102,7 @@ trait AccessCode
 
             [$magiclinkId, $accessCode] = explode('|', decrypt($cookie));
 
-            if ($magiclinkId === $this->getMagikLinkId()) {
+            if ($magiclinkId === $this->getMagicLinkId()) {
                 return $accessCode;
             }
         } catch (DecryptException $e) {

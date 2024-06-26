@@ -31,7 +31,7 @@ class MagicLink extends Model
         return $this->access_code ?? null;
     }
 
-    public function getMagikLinkId()
+    public function getMagicLinkId()
     {
         return $this->getKey();
     }
