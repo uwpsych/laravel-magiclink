@@ -16,6 +16,7 @@ use MagicLink\Events\MagicLinkWasVisited;
  * @property string $token
  * @property Carbon|null $available_at
  * @property int|null $max_visits
+ * @property string|null $name
  * @property int|null $num_visits
  * @property \MagicLink\Actions\ActionAbstract $action
  * @property-read string $url
@@ -97,7 +98,7 @@ class MagicLink extends Model
      *
      * @return self
      */
-    public static function create(ActionAbstract $action, ?int $lifetime = 4320, ?int $numMaxVisits = null)
+    public static function create(ActionAbstract $action, ?int $lifetime = 4320, ?int $numMaxVisits = null, ?string $name = null)
     {
         static::deleteMagicLinkExpired();
 
@@ -109,6 +110,7 @@ class MagicLink extends Model
                                     : null;
         $magiclink->max_visits = $numMaxVisits;
         $magiclink->action = $action;
+        $magiclink->name = $name;
 
         $magiclink->save();
 
