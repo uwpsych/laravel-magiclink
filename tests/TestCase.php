@@ -34,13 +34,13 @@ abstract class TestCase extends Orchestra
     {
         $app['config']->set('auth.providers.users.model', 'MagicLink\Test\TestSupport\User');
 
-        $app['config']->set('view.paths', [__DIR__.'/stubs/resources/views']);
+        $app['config']->set('view.paths', [__DIR__ . '/stubs/resources/views']);
 
-        $app['config']->set('filesystems.disks.local.root', __DIR__.'/stubs/storage/app');
+        $app['config']->set('filesystems.disks.local.root', __DIR__ . '/stubs/storage/app');
 
         $app['config']->set('filesystems.disks.alternative', [
             'driver' => 'local',
-            'root' => __DIR__.'/stubs/storage/app_alternative',
+            'root' => __DIR__ . '/stubs/storage/app_alternative',
         ]);
 
         $app['config']->set('database.connections.pgsql', [
@@ -65,22 +65,21 @@ abstract class TestCase extends Orchestra
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',
-            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+            'foreign_key_constraints' => true,
         ]);
 
         $driver = getenv('DB_DRIVER');
 
-        if($driver !== 'pgsql' && $driver !== 'mysql') {
+        if ($driver !== 'pgsql' && $driver !== 'mysql') {
             $app['config']->set('database.default', 'testbench');
         } else {
             $app['config']->set('database.default', $driver);
         }
-
     }
 
     protected function defineDatabaseMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../databases/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../databases/migrations');
         $this->setUpDatabase($this->app);
     }
 
@@ -110,6 +109,6 @@ abstract class TestCase extends Orchestra
 
     protected function loadRoutes()
     {
-        include __DIR__.'/stubs/routes.php';
+        include __DIR__ . '/stubs/routes.php';
     }
 }

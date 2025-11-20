@@ -20,13 +20,18 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0",
-        "illuminate/auth": "^9.0|^10.0|^11.0",
-        "illuminate/container": "^9.0|^10.0|^11.0",
-        "illuminate/contracts": "^9.0|^10.0|^11.0",
-        "illuminate/database": "^9.0|^10.0|^11.0",
-        "laravel/serializable-closure": "^1.0",
-        "nesbot/carbon": "^3.6"
+        "php": "^8.3",
+        "illuminate/auth": "^11.0|^12.0",
+        "illuminate/container": "^11.0|^12.0",
+        "illuminate/contracts": "^11.0|^12.0",
+        "illuminate/database": "^11.0|^12.0",
+        "laravel/serializable-closure": "^1.0|^2.0",
+        "nesbot/carbon": "^3.8.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.9",
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^11.0|^12.0"
     },
     "autoload": {
         "psr-4": {
@@ -47,12 +52,6 @@
                 "MagicLink\\MagicLinkServiceProvider"
             ]
         }
-    },
-    "require-dev": {
-        "orchestra/testbench": "^7.0|^8.0|^9.0",
-        "phpunit/phpunit": "^9.0|^10.5",
-        "friendsofphp/php-cs-fixer": "^3.9",
-        "larastan/larastan": "^2.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

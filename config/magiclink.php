@@ -1,8 +1,78 @@
 <?php
 
+
 return [
 
-    'token'           => [
+    'access_code' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Access Code View
+        |--------------------------------------------------------------------------
+        |
+        | Here you may specify the view to ask for access code.
+        |
+        */
+        'view' => 'magiclink::ask-for-access-code-form',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Delete Magic Link Expired massive
+    |--------------------------------------------------------------------------
+    |
+    | Expired MagicLinks are automatically and massively deleted from the database.
+    | If you want to disable this option, change the value to false.
+    |
+    | If you disable this option, expired MagicLinks will be deleted one by one
+    | triggering the event MagicLink\Events\MagicLinkWasDeleted.
+    |
+    */
+    'delete_massive' => env('MAGICLINK_DELETE_MASSIVE', true),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Disable default route
+    |--------------------------------------------------------------------------
+    |
+    | If you wish use your custom controller, you can invalidate the
+    | default route of magic link, mark this configuration as true,
+    | and add your custom route with the middleware:
+    | MagicLink\Middlewares\MagiclinkMiddleware
+    |
+    */
+    'disable_default_route' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Response when token is invalid
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the class with method __invoke to get the response
+    | when token is invalid
+    |
+    */
+    'invalid_response' => [
+        'class' => MagicLink\Responses\Response::class,
+    ],
+
+    'middlewares' => [
+        'throttle:magiclink',
+        MagicLink\Middlewares\MagiclinkMiddleware::class,
+        'web',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Rate Limit
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the number of attempts to rate limit per minutes
+    |
+    | Default: none, if you want to enable rate limit, set as integer
+    */
+    'rate_limit' => env('MAGICLINK_RATE_LIMIT', 'none'),
+
+    'token' => [
         /*
         |--------------------------------------------------------------------------
         | Token size
@@ -18,16 +88,6 @@ return [
     'url' => [
         /*
         |--------------------------------------------------------------------------
-        | Path to Validate Token and Auto Auth
-        |--------------------------------------------------------------------------
-        |
-        | Here you may specify the name of the path you'd like to use so that
-        | the verify token and auth in system.
-        |
-        */
-        'validate_path' => 'magiclink',
-        /*
-        |--------------------------------------------------------------------------
         | Path default to redirect
         |--------------------------------------------------------------------------
         |
@@ -36,35 +96,17 @@ return [
         |
         */
         'redirect_default' => '/',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Path to Validate Token and Auto Auth
+        |--------------------------------------------------------------------------
+        |
+        | Here you may specify the name of the path you'd like to use so that
+        | the verify token and auth in system.
+        |
+        */
+        'validate_path' => 'magiclink',
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Response when token is invalid
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify the class with method __invoke to get the response
-    | when token is invalid
-    |
-    */
-    'invalid_response' => [
-        'class' => MagicLink\Responses\Response::class,
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Disable default route
-    |--------------------------------------------------------------------------
-    |
-    | If you wish use your custom controller, you can invalidate the
-    | default route of magic link, mark this configuration as true,
-    | and add your custom route with the middleware:
-    | MagicLink\Middlewares\MagiclinkMiddleware
-    |
-    */
-    'disable_default_route' => false,
-
-    'access_code' => [
-        'view' => 'magiclink::ask-for-access-code-form',
-    ]
 ];

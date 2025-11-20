@@ -27,6 +27,10 @@ offer secure content and even log in to the application.
 - [Lifetime](#lifetime)
 - [Events](#events)
 - [Customization](#customization)
+- [Rate limiting](#rate-limiting)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [Security](#security)
 
 ## Installation
 
@@ -310,14 +314,40 @@ $urlToSend = $magiclink->url;
 
 ## Events
 
-MagicLink fires two events:
+MagicLink can fires three events:
 
-- `MagicLink\Events\MagicLinkWasCreated`
-- `MagicLink\Events\MagicLinkWasVisited`
+### MagicLinkWasCreated
+
+Event `MagicLink\Events\MagicLinkWasCreated`
+
+This event is fired when a magic link is created.
+
+### MagicLinkWasVisited
+
+Event `MagicLink\Events\MagicLinkWasVisited`
+
+This event is fired when a magic link is visited.
+
+### MagicLinkWasDeleted
+
+Event `MagicLink\Events\MagicLinkWasDeleted`
+
+This event is fired when you disable mass deletion. Add this line in your
+`.env` file to disable mass deletion:
+
+```.env
+# Disable mass deletion for enable event MagicLinkWasDeleted
+MAGICLINK_DELETE_MASSIVE=false
+```
+
+> [!WARNING]
+> If you disable mass deletion, the cleanup will be performed one by one.
+> If you have many records, this can be an issue.
 
 ## Customization
 
 ### Config
+
 To custom this package you can publish the config file:
 
 ```bash
@@ -326,8 +356,8 @@ php artisan vendor:publish --provider="MagicLink\MagicLinkServiceProvider" --tag
 
 And edit the file `config/magiclink.php`
 
-
 ### Migrations
+
 To customize the migration files of this package you need to publish the migration files:
 
 ```bash
@@ -335,7 +365,6 @@ php artisan vendor:publish --provider="MagicLink\MagicLinkServiceProvider" --tag
 ```
 
 You'll find the published files in `database/migrations/*`
-
 
 ### Custom response when magiclink is invalid
 
@@ -405,6 +434,20 @@ return a `view()`
             'data' => [],
         ],
     ],
+```
+
+## Rate limiting
+
+You can limit the number of requests per minute for a magic link. To do this, you need to
+set the `MAGICLINK_RATE_LIMIT` environment variable to the desired value.
+
+By default, the rate limit is disable with value 'none', but you can set a value
+to limit the requests. For example, to limit the requests to 100 per minute, set
+
+```bash
+# .env
+
+MAGICLINK_RATE_LIMIT=100
 ```
 
 ## Testing

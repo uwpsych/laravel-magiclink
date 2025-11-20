@@ -10,9 +10,10 @@ parameters:
     # The level 9 is the highest level
     level: 5
 
-    checkMissingIterableValueType: false
-
     ignoreErrors:
         -
             message: '#Unsafe usage of new static\(\)#'
             path: src/MagicLink.php
+        -
+            message: '#Parameter \#1 \$view of function view expects view-string\|null, string given#'
+            path: tests/Actions/ResponseTest.php
